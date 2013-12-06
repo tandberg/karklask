@@ -45,6 +45,7 @@ KarklaskApp.module('InputApp', function(InputApp, App, Backbone, Marionette, $, 
         }
         var c = new KarklaskApp.Entities.Grades(courses);
 
-        $('#main').html(JSON.stringify(c))
+        App.vent.trigger('display', c);
+//        $('#main').html(JSON.stringify(c))
     })
 });

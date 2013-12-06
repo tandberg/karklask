@@ -20,13 +20,29 @@ KarklaskApp.module('Entities', function(Entities, App, Backbone, Marionette, $, 
                     case "E": return 1;
                     default:  return 0;
                 }
-            }
+            };
             return gradeToPoint() * points;
         }
-
     });
 
     Entities.Grades = Backbone.Collection.extend({
-        model: Entities.Grade
+        model: Entities.Grade,
+
+        comparator: 'grade',
+
+        getAvg: function() {
+
+            var totalGradePoints = 0;
+            var totalPoints = 0;
+
+            for(var i = 0; i < this.models.length; i++) {
+                var course = this.get(i);
+                if(course.get('grade') != "-") {
+                    totalGradePoints += course.getGradePoints();
+                    totalPoints += course.get('points');
+                }
+            }
+            return (totalGradePoints / totalPoints).toPrecision(3);
+        }
     });
 });

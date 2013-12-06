@@ -2,5 +2,30 @@
 @import "foundation.scss";
 
 #input {
-  height: 300px;
+	height: 300px;
 }
+
+tbody {
+
+	.A > td {
+		background-color: #98FE98;
+	}
+
+	.B > td {
+		background-color: #98F098;
+	}
+
+	.C > td {
+		background-color: #FAE698;
+	}
+
+	.D > td {
+		background-color: #FEC198;
+	}
+
+	.E > td {
+		background-color: #FEAC98;
+	}
+
+}
+
