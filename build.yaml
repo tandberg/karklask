@@ -1,0 +1,15 @@
+files:
+  # Libraries
+  - vendor/jquery/jquery.js
+  - vendor/foundation/js/foundation/foundation.js
+  - vendor/underscore/underscore.js
+  - vendor/backbone/backbone.js
+  - vendor/marionette/lib/backbone.marionette.js
+
+  # Templates
+  - _tmp/templates.js
+
+  # # Application
+  - backbone/application.js
+  - backbone/entities/*.js
+  - backbone/apps/**/*.js
