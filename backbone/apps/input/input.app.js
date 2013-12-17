@@ -47,5 +47,10 @@ KarklaskApp.module('InputApp', function(InputApp, App, Backbone, Marionette, $, 
 
         App.vent.trigger('display', c);
 //        $('#main').html(JSON.stringify(c))
-    })
+    });
+
+    App.vent.on('show:input', function() {
+        Backbone.history.navigate('/');
+        API.input();
+    });
 });

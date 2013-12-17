@@ -57,7 +57,8 @@ module.exports = ->
       main:
         options:
           includePaths: [
-            'vendor/foundation/scss/'
+            'vendor/foundation/scss/',
+            'vendor/nvd3'
           ]
         files:
           'dist/css/karklask.css': 'sass/styles.scss'

@@ -3,15 +3,24 @@ KarklaskApp.module('ShowApp', function(ShowApp, App, Backbone, Marionette, $, _)
 
     ShowApp.Router = Marionette.AppRouter.extend({
         appRoutes: {
-            '(/)show': 'show'
+            '(/)show': 'show',
+            '(/)show/:grades': 'show'
         }
     });
 
     var API = {
         show: function(collection) {
 
-            console.log(collection);
-            ShowApp.List.Controller.list(collection);
+            if(collection === undefined) {
+                App.vent.trigger('show:input');
+                return;
+            }
+
+            if(typeof collection === "string") {
+                var c = window.c = JSON.parse(atob(collection));
+                collection = new KarklaskApp.Entities.Grades(c);
+            }
+            new ShowApp.Controller(collection);
         }
     };
 
