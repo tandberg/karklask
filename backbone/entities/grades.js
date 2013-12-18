@@ -4,6 +4,7 @@ KarklaskApp.module('Entities', function(Entities, App, Backbone, Marionette, $, 
     Entities.Grade = Backbone.Model.extend({
 
         defaults: {
+            year: '',
             code: '',
             title: '',
             grade: '-',
@@ -11,8 +12,8 @@ KarklaskApp.module('Entities', function(Entities, App, Backbone, Marionette, $, 
         },
 
         getGradePoints: function() {
-            var gradeToPoint = function() {
-                switch (this.grade) {
+            var gradeToPoint = function(grade) {
+                switch (grade) {
                     case "A": return 5;
                     case "B": return 4;
                     case "C": return 3;
@@ -21,7 +22,8 @@ KarklaskApp.module('Entities', function(Entities, App, Backbone, Marionette, $, 
                     default:  return 0;
                 }
             };
-            return gradeToPoint() * points;
+
+            return gradeToPoint(this.get('grade')) * this.get('points');
         }
     });
 
@@ -30,19 +32,17 @@ KarklaskApp.module('Entities', function(Entities, App, Backbone, Marionette, $, 
 
         comparator: 'grade',
 
-        getAvg: function() {
-
+        getPoints: function() {
             var totalGradePoints = 0;
             var totalPoints = 0;
-
-            for(var i = 0; i < this.models.length; i++) {
-                var course = this.get(i);
+            _.each(this.models, function(course) {
                 if(course.get('grade') != "-") {
                     totalGradePoints += course.getGradePoints();
                     totalPoints += course.get('points');
                 }
-            }
-            return (totalGradePoints / totalPoints).toPrecision(3);
+            })
+
+            return {avg: (totalGradePoints / totalPoints).toPrecision(3), total: totalPoints};
         }
     });
 });

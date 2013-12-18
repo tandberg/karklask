@@ -27,21 +27,21 @@ KarklaskApp.module('InputApp', function(InputApp, App, Backbone, Marionette, $, 
 
         for(var i = 0; i< courseText.length; ++i) {
             var text = courseText[i].split("\t");
-
             var index = -1;
-            for (var j = 3; j < text.length; ++j) {
+            for (var j = 0; j < text.length; ++j) {
                 if (text[j].length == 1) {
                     index = j;
                     break;
                 }
             }
             if (index == -1) continue;
+            var year = text[0];
             var code = text[1];
             var title = text[2];
             var grade = text[index];
             var points = parseFloat(text[index+1].replace(",","."));
 
-            courses.push(new KarklaskApp.Entities.Grade({code: code, title: title, grade: grade, points: points}));
+            courses.push(new KarklaskApp.Entities.Grade({year: year, code: code, title: title, grade: grade, points: points}));
         }
         var c = new KarklaskApp.Entities.Grades(courses);
 
