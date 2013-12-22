@@ -8,6 +8,10 @@
 	height: 300px;
 }
 
+#main {
+	margin-top: 10px;
+}
+
 tbody {
 
 	.A > td {
@@ -30,4 +34,10 @@ tbody {
 		background-color: #FEAC98;
 	}
 
+}
+
+.row{
+	@media #{$medium} {
+		max-width: 90em;
+	}
 }
