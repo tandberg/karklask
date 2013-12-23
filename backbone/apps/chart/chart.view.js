@@ -14,7 +14,7 @@ KarklaskApp.module('ChartApp', function(ChartApp, App, Backbone, Marionette, $, 
         },
 
         onShow: function() {
-            this.showPiechart();
+            this.showPiechart({animateScale: true, animationSteps: 50});
         },
 
         extractPieData: function() {
@@ -49,6 +49,26 @@ KarklaskApp.module('ChartApp', function(ChartApp, App, Backbone, Marionette, $, 
             return data;
         },
 
+        yearsort: function(a, b) {
+            var a1 = a.split(' ');
+            var b1 = b.split(' ');
+            if(a1[1] === b1[1]) {
+                if(a1[0] > b1[0]) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+
+            else {
+                if(a1[1] > b1[1]) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        },
+
         extractLineData: function() {
 
             var labels = [];
@@ -56,13 +76,12 @@ KarklaskApp.module('ChartApp', function(ChartApp, App, Backbone, Marionette, $, 
                 labels.push(course.get('year'));
                 labels = _.uniq(labels);
             });
+            labels.sort(this.yearsort);
 
             var tmp = [];
-
-            for( var i = 0; i < labels.length; i++) {
+            for(var i = 0; i < labels.length; i++) {
                 _.each(this.collection.models, function(course) {
                     if(course.get('year') === labels[i]) {
-
                         tmp[i] = (course.getGradePoints() / course.get('points'));
                     }
                 });
@@ -86,10 +105,10 @@ KarklaskApp.module('ChartApp', function(ChartApp, App, Backbone, Marionette, $, 
             return data;
         },
 
-        showPiechart: function() {
+        showPiechart: function(options) {
             $('#chart').html('<canvas id="piehcart" width="600" height="600"></canvas>');
             var ctx = $('#piehcart').get(0).getContext('2d');
-            new Chart(ctx).Pie(this.extractPieData(), {animateScale: true, animationSteps: 50});
+            new Chart(ctx).Pie(this.extractPieData(), options);
         },
 
         showTimechart: function() {

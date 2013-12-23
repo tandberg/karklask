@@ -6,6 +6,10 @@ KarklaskApp.module('ListApp', function(ListApp, App, Backbone, Marionette, $, _)
         tagName: 'tr',
         className: function() {
             return this.model.get('grade')
+        },
+
+        triggers: {
+            'click' : 'course:clicked'
         }
     });
 

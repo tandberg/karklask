@@ -5,6 +5,11 @@ KarklaskApp.module('ChartApp', function(ChartApp, App, Backbone, Marionette, $, 
 
         show: function(args) {
             var view = this.getView(args.collection);
+
+            App.vent.on('course:removed', function() {
+                view.showPiechart({animateScale: true, animationSteps: 20});
+            });
+
             args.region.show(view);
         },
 
@@ -19,4 +24,6 @@ KarklaskApp.module('ChartApp', function(ChartApp, App, Backbone, Marionette, $, 
             return view;
         }
     };
+    
+
 });
