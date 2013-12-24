@@ -78,22 +78,28 @@ KarklaskApp.module('ChartApp', function(ChartApp, App, Backbone, Marionette, $, 
             });
             labels.sort(this.yearsort);
 
-            var tmp = [];
+            var pointsPrYear = _(labels.length).times(function() {return 0;});
+            var coursePrYear = _(labels.length).times(function() {return 0;});
+
             for(var i = 0; i < labels.length; i++) {
                 _.each(this.collection.models, function(course) {
                     if(course.get('year') === labels[i]) {
-                        tmp[i] = (course.getGradePoints() / course.get('points'));
+                        pointsPrYear[i] += (course.getGradePoints() / course.get('points'));
+                        coursePrYear[i] += 1;
                     }
                 });
             }
 
+            for(var i = 0; i < coursePrYear.length; i++) {
+                pointsPrYear[i] /= coursePrYear[i];
+            }
             var datasets = [
                 {
                     fillColor : "rgba(151,187,205,0.5)",
                     strokeColor : "rgba(151,187,205,1)",
                     pointColor : "rgba(151,187,205,1)",
                     pointStrokeColor : "#fff",
-                    data : tmp
+                    data : pointsPrYear
                 }
             ];
 
