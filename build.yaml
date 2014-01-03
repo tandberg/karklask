@@ -1,12 +1,9 @@
 files:
   # Libraries
   - vendor/jquery/jquery.js
-  - vendor/foundation/js/foundation/foundation.js
   - vendor/underscore/underscore.js
   - vendor/backbone/backbone.js
   - vendor/marionette/lib/backbone.marionette.js
-  - vendor/d3/d3.js
-  - vendor/nvd3/nv.d3.js
   - vendor/Chart.js/Chart.js
 
   # Templates
